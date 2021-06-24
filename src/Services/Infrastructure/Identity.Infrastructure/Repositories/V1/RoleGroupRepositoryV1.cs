@@ -1,4 +1,5 @@
 ﻿using Identity.Application.Contracts.Persistence.Base;
+using Identity.Application.Contracts.Persistence.V1;
 using Identity.Domain.Entities;
 using Identity.Infrastructure.Persistence;
 using Npgsql;
