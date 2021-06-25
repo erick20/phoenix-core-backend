@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Identity.Application.Exceptions
 {
-    public class ErrorDataModel<T> where T : class, new()
+    public class ErrorDataModel<T> where T : class, new() 
     {
         [JsonProperty("key")]
         public string Key { get; set; }
