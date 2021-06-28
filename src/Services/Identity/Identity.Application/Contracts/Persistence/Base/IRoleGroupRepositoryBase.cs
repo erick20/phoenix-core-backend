@@ -9,5 +9,7 @@ namespace Identity.Application.Contracts.Persistence.Base
 {
     public interface IRoleGroupRepositoryBase : IBaseRepository<RoleGroup>
     {
+        Task<RoleGroup> GetRoleGroupByIdAsync(int id, bool withActiveState);
+        Task<RoleGroup> GetRoleGroupByNameAsync(string name, bool withActiveState);
     }
 }

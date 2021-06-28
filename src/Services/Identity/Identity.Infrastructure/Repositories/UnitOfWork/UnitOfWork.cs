@@ -1,5 +1,6 @@
 ﻿using Identity.Application.Contracts.Persistence.Base;
 using Identity.Application.Contracts.Persistence.V1;
+using Identity.Application.Exceptions;
 using Identity.Infrastructure.Persistence;
 using Identity.Infrastructure.Repositories.Base;
 using Microsoft.EntityFrameworkCore.Storage;
