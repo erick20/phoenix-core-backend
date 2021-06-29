@@ -21,8 +21,5 @@ namespace Identity.API.Controllers.V1
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-
-
-
     }
 }

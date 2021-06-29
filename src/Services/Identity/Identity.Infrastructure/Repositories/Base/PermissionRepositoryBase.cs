@@ -1,6 +1,7 @@
 ﻿using Identity.Application.Contracts.Persistence.Base;
 using Identity.Domain.Entities;
 using Identity.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,20 @@ namespace Identity.Infrastructure.Repositories.Base
         {
             _dbContext = dbContext;
             _transaction = transaction;
+        }
+
+        public async Task<Permission> GetPermissionByIdAsync(int id, bool withActiveState)
+        {
+            var entity = withActiveState ? await Get(x => x.Id == id).FirstOrDefaultAsync() : await GetNoTracking(x => x.Id == id).FirstOrDefaultAsync();
+            return entity;
+        }
+
+       
+
+        public IQueryable<Permission> GetPermissionByGroupId(int groupId)
+        {
+            var entityList = GetNoTracking(x => x.GroupId == groupId);
+            return entityList;
         }
     }
 }

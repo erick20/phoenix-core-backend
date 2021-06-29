@@ -14,6 +14,11 @@ namespace Identity.Application.Exceptions
             throw new HttpException(400, message != null ? JsonObject(message) : "Invalid data");
         }
 
+        public static void ReportBadRequest(string name, string message = null)
+        {
+            throw new HttpException(400, message != null ? JsonObject(message, name) : "Invalid data");
+        }
+
         public static void ReportUnauthorizedAccess(string message = null)
         {
             throw new HttpException(401, message != null ? JsonObject(message) : "Unauthorized: Access is denied due to invalid credentials");
@@ -62,6 +67,17 @@ namespace Identity.Application.Exceptions
         public static void ReportServiceUnavelable(Exception ex)
         {
             throw new HttpException(503, ex != null ? JsonObject(ex.Message) : "Problem occured: Server Unavailable");
+        }
+
+        private static string JsonObject(string message, string name)
+        {
+            ErrorValidationModel error = new ErrorValidationModel
+            {
+                Key = message,
+                Name = name
+            };
+
+            return JsonConvert.SerializeObject(error);
         }
 
         private static string JsonObject(string message)

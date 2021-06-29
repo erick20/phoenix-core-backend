@@ -11,8 +11,13 @@
   <ItemGroup>
     <Folder Include="Contracts\Infrastructure\" />
     <Folder Include="Behaviours\" />
-    <Folder Include="Features\Role\Commands\" />
-    <Folder Include="Features\Role\Queries\" />
+    <Folder Include="Features\Permission\V1\Commands\DeletePermission\" />
+    <Folder Include="Features\Role\V1\Commands\CreateRole\" />
+    <Folder Include="Features\Role\V1\Commands\UpdateRole\" />
+    <Folder Include="Features\Role\V1\Queries\GetRoleByIds\" />
+    <Folder Include="Features\Role\V1\Queries\GetRoleListPaged\" />
+    <Folder Include="Features\Role\V1\Queries\GetRoleListByWarehouseTypeId\" />
+    <Folder Include="Features\Role\V1\Queries\GetRoleCard\" />
     <Folder Include="Models\" />
     <Folder Include="Mappings\" />
   </ItemGroup>

@@ -9,5 +9,7 @@ namespace Identity.Application.Contracts.Persistence.Base
 {
     public interface IPermissionRepositoryBase : IBaseRepository<Permission>
     {
+        Task<Permission> GetPermissionByIdAsync(int id, bool withActiveState);
+        IQueryable<Permission> GetPermissionByGroupId(int groupId);
     }
 }
