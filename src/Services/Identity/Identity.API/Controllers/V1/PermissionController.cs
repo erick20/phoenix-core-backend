@@ -148,7 +148,7 @@ namespace Identity.API.Controllers.V1
         }
 
 
-        [HttpPatch("{id}")]
+        [HttpPut("{id}")]
         [Authorization]
         [ProducesResponseType(typeof(PermissionV1Response), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(List<ErrorValidationModel>), StatusCodes.Status400BadRequest)]

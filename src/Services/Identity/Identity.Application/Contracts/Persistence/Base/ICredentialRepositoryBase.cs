@@ -9,5 +9,6 @@ namespace Identity.Application.Contracts.Persistence.Base
 {
     public interface ICredentialRepositoryBase : IBaseRepository<Credential>
     {
+        Task<Credential> GetCredetialByIdAsync(int credentialId, bool withActiveState);
     }
 }
