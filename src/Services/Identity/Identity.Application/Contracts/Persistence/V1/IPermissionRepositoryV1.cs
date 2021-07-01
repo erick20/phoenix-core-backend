@@ -10,5 +10,6 @@ namespace Identity.Application.Contracts.Persistence.V1
 {
     public interface IPermissionRepositoryV1 : IPermissionRepositoryBase
     {
+        
     }
 }

@@ -34,5 +34,12 @@ namespace Identity.Infrastructure.Repositories.Base
             var entityList = GetNoTracking(x => x.GroupId == groupId);
             return entityList;
         }
+
+        public async Task<List<string>> GetPermissionKeyListByRoleIdAsync(int roleId)
+        {
+            var keyList = await GetNoTracking(x => x.RolePermissions.Any(y => y.RoleId == roleId)).Select(x => x.Key).ToListAsync();
+
+            return keyList;
+        }
     }
 }

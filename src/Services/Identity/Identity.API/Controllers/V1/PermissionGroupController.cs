@@ -1,9 +1,8 @@
 ﻿using Identity.Application.Exceptions;
-using Identity.Application.Features.RoleGroup.V1;
-using Identity.Application.Features.RoleGroup.V1.Commands.CreateRoleGroup;
-using Identity.Application.Features.RoleGroup.V1.Commands.UpdateRoleGroup;
-using Identity.Application.Features.RoleGroup.V1.Queries.GetRoleGroupList;
-using Identity.Application.Features.RoleGroup.V1.Queries.GetRolesGroupById;
+using Identity.Application.Features.PermissionGroup;
+using Identity.Application.Features.PermissionGroup.V1.Commands.CreatePermissionGroup;
+using Identity.Application.Features.PermissionGroup.V1.Commands.UpdatePermissionGroup;
+using Identity.Application.Features.PermissionGroup.V1.Queries.GetPermissionGroupList;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,61 +26,61 @@ namespace Identity.API.Controllers.V1
         }
 
         /// <summary>
-        /// Get RoleGroup List
+        /// Get PermissionGroup List
         /// </summary>
         //[Authorization]
-        [HttpGet("RoleGroups")]
-        [ProducesResponseType(typeof(List<RoleGroupV1Response>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetRoleGroupList()
+        [HttpGet("PermissionGroups")]
+        [ProducesResponseType(typeof(List<PermissionGroupV1Response>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetPermissionGroupList()
         {
-            var query = new GetRoleGroupListV1Query();
+            var query = new GetPermissionGroupListV1Query();
             var result = await _mediator.Send(query);
 
             return Ok(result);
         }
 
-        /// <summary>
-        /// Get  RoleGroup by id
-        /// </summary>
-        //[Authorization]
-        [HttpGet("RoleGroupsById")]
-        [ProducesResponseType(typeof(List<RoleGroupV1Response>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetRoleGroup(int id)
-        {
-            var query = new GetRoleGroupByIdV1Query();            
-            var result = await _mediator.Send(query);
+        ///// <summary>
+        ///// Get  RoleGroup by id
+        ///// </summary>
+        ////[Authorization]
+        //[HttpGet("RoleGroupsById")]
+        //[ProducesResponseType(typeof(List<PermissionGroupV1Response>), StatusCodes.Status200OK)]
+        //public async Task<IActionResult> GetRoleGroupById(int id)
+        //{
+        //    var query = new GetPermissionGroupByIdV1Query { };            
+        //    var result = await _mediator.Send(query);
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
         /// <summary>
-        /// Create Role Group
+        /// Create Permission Group
         /// </summary>
         [HttpPost]
         //[Authorization]
-        [ProducesResponseType(typeof(RoleGroupV1Response), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PermissionGroupV1Response), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(List<ErrorValidationModel>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateRoleGroup([FromBody] CreateRoleGroupV1Command request)
+        public async Task<IActionResult> CreatePermissionGroup([FromBody] CreatePermissionGroupV1Command request)
         {
-            RoleGroupV1Response result = await _mediator.Send(request);
+            PermissionGroupV1Response result = await _mediator.Send(request);
 
             return Ok(result);
         }
 
         /// <summary>
-        /// Update Role Group
+        /// Update Permission Group
         /// </summary>
         /// <param name="id"></param>
         /// <param name="requestModel"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
         //   [Authorization]
-        [ProducesResponseType(typeof(RoleGroupV1Response), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PermissionGroupV1Response), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(List<ErrorValidationModel>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateRoleGroup(int id, [FromBody] UpdateRoleGroupV1Command request) // todo [ValidationRequired]
+        public async Task<IActionResult> UpdatePermissionGroup(int id, [FromBody] UpdatePermissionGroupV1Command request) // todo [ValidationRequired]
         {
             request.Id = id;
-            RoleGroupV1Response result = await _mediator.Send(request);
+            PermissionGroupV1Response result = await _mediator.Send(request);
 
             return Ok(result);
         }

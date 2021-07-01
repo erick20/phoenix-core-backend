@@ -1,4 +1,5 @@
 ﻿using Identity.Application.Contracts.Persistence.Base;
+using Identity.Application.Contracts.Persistence.UnitOfWork;
 using Identity.Application.Contracts.Persistence.V1;
 using Identity.Application.Exceptions;
 using Identity.Infrastructure.Persistence;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Identity.Infrastructure.Repositories.UnitOfWork
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         #region Fields
         ICredentialRepositoryBase _credentialRepositoryBase;
