@@ -9,14 +9,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\Infrastructure\" />
     <Folder Include="Behaviours\" />
+    <Folder Include="Features\Authentication\V1\Commands\" />
     <Folder Include="Features\Credential\V1\Commands\ConfirmPassword\" />
     <Folder Include="Features\Credential\V1\Commands\ChangePassword\" />
     <Folder Include="Features\Credential\V1\Commands\ResetPassword\" />
     <Folder Include="Features\Permission\V1\Commands\DeletePermission\" />
     <Folder Include="Features\Role\V1\Commands\AssignRolePermission\" />
-    <Folder Include="Models\" />
+    <Folder Include="Features\Authentication\V1\Commands\Token\" />
+    <Folder Include="Features\Authentication\V1\Commands\AuthorizePermission\" />
+    <Folder Include="Features\Authentication\V1\Commands\RefreshToken\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 

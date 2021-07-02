@@ -1,8 +1,8 @@
 ﻿using Identity.API.Attributes;
+using Identity.Application.Contracts.Infrastructure;
 using Identity.Application.Exceptions;
 using Identity.Application.Features.Credential.V1.Commands.UpdateCredentialPassword;
 using Identity.Application.Features.Credential.V1.Commands.UpdateCredetialState;
-using Identity.Application.Features.UserContext;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

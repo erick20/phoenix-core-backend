@@ -19,17 +19,19 @@ namespace Identity.API
 
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        public IConfiguration _configuration { get; }
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureAppSettings(_configuration);
+
             services.AddApplicationServices();
 
-            services.AddInfrastructureServices(Configuration);
+            services.AddInfrastructureServices(_configuration.GetConnectionString("DefaultConnectionString"), _configuration.GetSection("AuthenticationService"));
 
             services.AddControllers();
 

@@ -1,4 +1,5 @@
 ﻿using Identity.API.Attributes;
+using Identity.Application.Contracts.Infrastructure;
 using Identity.Application.Exceptions;
 using Identity.Application.Features.Permission.V1;
 using Identity.Application.Features.Permission.V1.Commands.CreatePermission;
@@ -8,7 +9,6 @@ using Identity.Application.Features.Permission.V1.Queries.GetPermissionList;
 using Identity.Application.Features.Permission.V1.Queries.GetPermissionListByGroupId;
 using Identity.Application.Features.Permission.V1.Queries.GetPermissionListByRoleAndGroupId;
 using Identity.Application.Features.Permission.V1.Queries.GetPermissionListByRoleId;
-using Identity.Application.Features.UserContext;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
