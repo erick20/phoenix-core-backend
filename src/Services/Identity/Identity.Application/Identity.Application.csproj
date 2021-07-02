@@ -10,15 +10,12 @@
 
   <ItemGroup>
     <Folder Include="Behaviours\" />
-    <Folder Include="Features\Authentication\V1\Commands\" />
     <Folder Include="Features\Credential\V1\Commands\ConfirmPassword\" />
     <Folder Include="Features\Credential\V1\Commands\ChangePassword\" />
     <Folder Include="Features\Credential\V1\Commands\ResetPassword\" />
     <Folder Include="Features\Permission\V1\Commands\DeletePermission\" />
     <Folder Include="Features\Role\V1\Commands\AssignRolePermission\" />
-    <Folder Include="Features\Authentication\V1\Commands\Token\" />
-    <Folder Include="Features\Authentication\V1\Commands\AuthorizePermission\" />
-    <Folder Include="Features\Authentication\V1\Commands\RefreshToken\" />
+    <Folder Include="Features\Token\V1\Commands\RefreshAccessToken\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 
@@ -28,6 +25,7 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.11.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 

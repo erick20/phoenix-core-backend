@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Identity.Application.Contracts.Infrastructure
+namespace Identity.Application.Contracts.Infrastructure.Services
 {
     public interface IUserContextService
     {

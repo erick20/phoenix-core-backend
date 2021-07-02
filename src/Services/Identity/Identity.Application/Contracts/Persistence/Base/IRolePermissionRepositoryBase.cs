@@ -9,5 +9,6 @@ namespace Identity.Application.Contracts.Persistence.Base
 {
     public interface IRolePermissionRepositoryBase : IBaseRepository<RolePermission>
     {
+        Task<RolePermission> GetByRoleIdActionNameAsync(int roleId, string actionName, bool withActiveState);
     }
 }

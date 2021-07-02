@@ -1,10 +1,10 @@
-﻿using Identity.Application.Contracts.Infrastructure;
+﻿using Identity.Application.Contracts.Infrastructure.Services;
 using Identity.Application.Enums;
 using Identity.Application.Exceptions;
 using Identity.Application.Features.Credential.V1;
 using Identity.Application.Features.Credential.V1.Queries.GetCredentialById;
+using Identity.Application.Helpers;
 using Identity.Application.Models.UserContext;
-using Identity.Infrastructure.Helpers;
 using Identity.Infrastructure.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;

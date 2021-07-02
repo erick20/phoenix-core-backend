@@ -1,5 +1,5 @@
 ﻿using Identity.API.Attributes;
-using Identity.Application.Contracts.Infrastructure;
+using Identity.Application.Contracts.Infrastructure.Services;
 using Identity.Application.Exceptions;
 using Identity.Application.Features.Permission.V1;
 using Identity.Application.Features.Permission.V1.Commands.CreatePermission;

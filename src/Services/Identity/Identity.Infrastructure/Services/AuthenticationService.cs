@@ -1,7 +1,7 @@
-﻿using Identity.Application.Contracts.Infrastructure;
+﻿using Identity.Application.Contracts.Infrastructure.Services;
 using Identity.Application.Exceptions;
+using Identity.Application.Helpers;
 using Identity.Application.Models.Authentication;
-using Identity.Infrastructure.Helpers;
 using Identity.Infrastructure.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -31,7 +31,7 @@ namespace Identity.Infrastructure.Services
         {
             ClaimsIdentity _identity = GetIdentity(details);
             DateTime currentDate = DateTime.Now;
-            DateTime expDateTime = currentDate.Add(TimeSpan.FromHours(_authenticationServiceSettings.Value.CustomerTokenLifeTime));
+            DateTime expDateTime = currentDate.Add(TimeSpan.FromHours(_authenticationServiceSettings.Value.TokenLifeTime));
             string _encodedJwt = string.Empty;
 
             var _jwt = new JwtSecurityToken(

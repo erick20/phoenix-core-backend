@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Identity.Infrastructure.Services;
-using Identity.Application.Contracts.Infrastructure;
+using Identity.Application.Contracts.Infrastructure.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using Identity.Infrastructure.Models;
 using Microsoft.Extensions.Options;
 using System;
-using Identity.Infrastructure.Helpers;
+using Identity.Application.Helpers;
 
 namespace Identity.Infrastructure
 {

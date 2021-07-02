@@ -1,13 +1,10 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Identity.Infrastructure.Helpers
+namespace Identity.Application.Helpers
 {
     public class CryptHelper
     {

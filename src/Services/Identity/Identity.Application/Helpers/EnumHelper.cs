@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Identity.Infrastructure.Helpers
+namespace Identity.Application.Helpers
 {
     public static class EnumHelper // TODO make this helper common for whole project
     {

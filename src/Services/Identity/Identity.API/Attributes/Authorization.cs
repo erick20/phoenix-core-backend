@@ -1,4 +1,4 @@
-﻿using Identity.Application.Contracts.Infrastructure;
+﻿using Identity.Application.Contracts.Infrastructure.Services;
 using Identity.Application.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,11 +31,6 @@ namespace Identity.API.Attributes
                 {
                     // Log Here
                     throw new ArgumentNullException(nameof(context));
-                }
-
-                if (string.IsNullOrEmpty(accessToken))
-                {
-                    ProblemReporter.ReportUnauthorizedAccess("empty_access_token");
                 }
 
                 await _authorizationService.Authorize(accessToken, innerToken);

@@ -8,11 +8,11 @@ namespace Identity.Infrastructure.Models
 {
     public class AuthenticationServiceSettings
     {
+        public string AesSecretKey { get; set; }
         public string Issuer { get; set; }
         public string Audience { get; set; }
         public string Key { get; set; }
-        public int CustomerTokenLifeTime { get; set; }
-        public int UserTokenLifeTime { get; set; }
+        public int TokenLifeTime { get; set; }
 
     }
 }

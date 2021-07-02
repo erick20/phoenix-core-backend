@@ -1,7 +1,7 @@
-﻿using Identity.Application.Contracts.Infrastructure;
+﻿using Identity.Application.Contracts.Infrastructure.Services;
 using Identity.Application.Enums;
+using Identity.Application.Helpers;
 using Identity.Application.Models.UserContext;
-using Identity.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
