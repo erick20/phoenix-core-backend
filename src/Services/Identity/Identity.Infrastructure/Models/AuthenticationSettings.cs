@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Identity.Infrastructure.Models
 {
-    public class AuthenticationServiceSettings
+    public class AuthenticationSettings
     {
         public string AesSecretKey { get; set; }
         public string Issuer { get; set; }

@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Identity.Infrastructure.Models
 {
-    public interface IServiceClientBase
+    public class CustomerClientSettings : IClientServiceBase
     {
         public string BaseAddress { get; set; }
+        public string GetCustomerByContact { get; set; }
+        public string GetCustomerById { get; set; }
+        public string AddOrUpdateDevice { get; set; }
     }
 }

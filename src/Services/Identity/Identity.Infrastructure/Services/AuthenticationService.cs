@@ -20,8 +20,8 @@ namespace Identity.Infrastructure.Services
     public class AuthenticationService : IAuthenticationService
     {
         private readonly ILogger<AuthenticationService> _logger;
-        private readonly IOptions<AuthenticationServiceSettings> _authenticationServiceSettings;
-        public AuthenticationService(ILogger<AuthenticationService> logger, IOptions<AuthenticationServiceSettings> authenticationServiceSettings)
+        private readonly IOptions<AuthenticationSettings> _authenticationServiceSettings;
+        public AuthenticationService(ILogger<AuthenticationService> logger, IOptions<AuthenticationSettings> authenticationServiceSettings)
         {
             _logger = logger;
             _authenticationServiceSettings = authenticationServiceSettings;

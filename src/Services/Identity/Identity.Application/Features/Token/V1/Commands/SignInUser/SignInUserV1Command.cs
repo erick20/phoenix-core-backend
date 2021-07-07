@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Identity.Application.Features.Token.V1.Commands.SignIn
+namespace Identity.Application.Features.Token.V1.Commands.SignInUser
 {
-    public class SignInV1Command : IRequest<TokenV1Response>
+    public class SignInUserV1Command : IRequest<TokenV1Response>
     {
         private string username;
         private string password;

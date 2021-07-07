@@ -14,7 +14,10 @@ namespace Identity.Application.Models.CustomerClient
         public CustomerClientResponse Customer { get; set; }
 
         [JsonProperty("contacts")]
-        public List<ContactShortResponse> Contacts { get; set; }
+        public List<ContactShortClientResponse> Contacts { get; set; }
+
+        [JsonProperty("devices")]
+        public List<DeviceClientResponse> Devices { get; set; }
     }
 
     public class CustomerClientResponse
@@ -41,13 +44,13 @@ namespace Identity.Application.Models.CustomerClient
         public int? WarehouseId { get; set; }
     }
 
-    public class ContactShortResponse
+    public class ContactShortClientResponse
     {
         [JsonProperty("id")]
         public int Id { get; set; }
 
         [JsonProperty("contactType")]
-        public ContactTypeResponse ContactType { get; set; }
+        public ContactTypeClientResponse ContactType { get; set; }
 
         [JsonProperty("contact")]
         public string Contact { get; set; }
@@ -55,7 +58,7 @@ namespace Identity.Application.Models.CustomerClient
         [JsonProperty("verificationState")]
         public short VerificationState { get; set; }
     }
-    public class ContactTypeResponse
+    public class ContactTypeClientResponse
     {
         [JsonProperty("id")]
         public int Id { get; set; }
@@ -63,6 +66,23 @@ namespace Identity.Application.Models.CustomerClient
         [JsonProperty("name")]
         public string Name { get; set; }
     }
+
+    public class DeviceClientResponse
+    {
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("deviceId")]
+        public string DeviceId { get; set; }
+
+        [JsonProperty("fsmToken")]
+        public string FsmToken { get; set; }
+
+        [JsonProperty("lastUpdateDate")]
+        public DateTime LastUpdateDate { get; set; }
+
+        [JsonProperty("customerId")]
+        public int CustomerId { get; set; }
+    }
 }
-   
-}
+

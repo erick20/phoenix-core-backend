@@ -31,7 +31,7 @@ namespace Identity.API
 
             services.AddApplicationServices();
 
-            services.AddInfrastructureServices(_configuration.GetConnectionString("DefaultConnectionString"), _configuration.GetSection("AuthenticationService"));
+            services.AddInfrastructureServices(_configuration.GetConnectionString("DefaultConnectionString"), _configuration);//.GetSection("AuthenticationService"));
 
             services.AddControllers();
 

@@ -26,8 +26,8 @@ namespace Identity.Infrastructure.Services
         private readonly IUserContextService _userContextService;
         private readonly IMediator _mediator;
         private readonly ILogger<AuthorizationService> _logger;
-        private readonly IOptions<AuthenticationServiceSettings> _authenticationServiceSettings;
-        public AuthorizationService(IHttpContextAccessor contextAccessor, IUserContextService userContextService, IMediator mediator, IOptions<AuthenticationServiceSettings> authenticationServiceSettings, ILogger<AuthorizationService> logger)
+        private readonly IOptions<AuthenticationSettings> _authenticationServiceSettings;
+        public AuthorizationService(IHttpContextAccessor contextAccessor, IUserContextService userContextService, IMediator mediator, IOptions<AuthenticationSettings> authenticationServiceSettings, ILogger<AuthorizationService> logger)
         {
             _contextAccessor = contextAccessor;
             _userContextService = userContextService;

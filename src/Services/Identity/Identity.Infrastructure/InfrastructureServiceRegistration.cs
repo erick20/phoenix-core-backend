@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Threading.Tasks;
 using Identity.Infrastructure.Models;
-using Microsoft.Extensions.Options;
 using System;
 using Identity.Application.Helpers;
 
@@ -21,9 +20,16 @@ namespace Identity.Infrastructure
 {
     public static class InfrastructureServiceRegistration
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, string connectionString, IConfiguration configuration)//IOptions<AuthenticationServiceSettings> authenticationServiceSettings)//IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, string connectionString, IConfiguration configuration)
         {
-            AuthenticationServiceSettings authenticationServiceSettings = configuration.Get<AuthenticationServiceSettings>();
+            AuthenticationSettings authenticationSettings = configuration
+                .GetSection("AuthenticationService").Get<AuthenticationSettings>();
+
+            CustomerClientSettings customerClientSettings = configuration
+                .GetSection("MicroServiceApiRoutes:Customer").Get<CustomerClientSettings>();
+
+            SecretKeysClientSettings secretKeysClientSettings = configuration
+                .GetSection("SecretKeys").Get<SecretKeysClientSettings>();
 
             #region Jwt Configs
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -33,12 +39,12 @@ namespace Identity.Infrastructure
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidateIssuer = true,
-                            ValidIssuer = authenticationServiceSettings.Issuer,
+                            ValidIssuer = authenticationSettings.Issuer,
                             ValidateAudience = true,
-                            ValidAudience = authenticationServiceSettings.Audience,
+                            ValidAudience = authenticationSettings.Audience,
                             ValidateLifetime = true,
                             ClockSkew = TimeSpan.Zero,
-                            IssuerSigningKey = CryptHelper.GetSymmetricSecurityKey(authenticationServiceSettings.Key),
+                            IssuerSigningKey = CryptHelper.GetSymmetricSecurityKey(authenticationSettings.Key),
                             ValidateIssuerSigningKey = true,
                         };
                         options.Events = new JwtBearerEvents

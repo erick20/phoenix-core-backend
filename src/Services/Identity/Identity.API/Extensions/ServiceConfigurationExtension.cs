@@ -12,9 +12,9 @@ namespace Identity.API.Extensions
     {
         public static void ConfigureAppSettings(this IServiceCollection services, IConfiguration configuration)
         {
-            IConfigurationSection authenticationServiceSettingsConfig = configuration.GetSection("AuthenticationService");
-            AuthenticationServiceSettings authenticationServiceSettings = authenticationServiceSettingsConfig.Get<AuthenticationServiceSettings>();
-            services.Configure<AuthenticationServiceSettings>(authenticationServiceSettingsConfig);
+            //IConfigurationSection authenticationServiceSettingsConfig = configuration.GetSection("AuthenticationService");
+            //AuthenticationSettings authenticationServiceSettings = authenticationServiceSettingsConfig.Get<AuthenticationSettings>();
+            //services.Configure<AuthenticationSettings>(authenticationServiceSettingsConfig);
         }
     }
 }
