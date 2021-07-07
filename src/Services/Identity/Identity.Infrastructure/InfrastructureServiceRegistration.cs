@@ -71,8 +71,7 @@ namespace Identity.Infrastructure
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
-            services.AddScoped<IAuthorizationService, AuthorizationService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();            
             services.AddScoped<IUserContextService, UserContextService>();
 
             services.AddHttpClient<ICustomerClientService, CustomerClientService>();

@@ -1,6 +1,5 @@
-﻿using Identity.Application.Contracts.Infrastructure.Services;
-using Identity.Application.Exceptions;
-using Microsoft.AspNetCore.Http;
+﻿using Identity.Application.Features.Token.V1.Commands.Authorize;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -16,10 +15,10 @@ namespace Identity.API.Attributes
 
         public class AuthorizeFilter : IAsyncAuthorizationFilter
         {
-            private readonly IAuthorizationService _authorizationService;
-            public AuthorizeFilter(IAuthorizationService authorizationService)
+            private readonly IMediator _mediator;
+            public AuthorizeFilter(IMediator mediator)
             {
-                _authorizationService = authorizationService;
+                _mediator = mediator;
             }
 
             public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
@@ -33,7 +32,12 @@ namespace Identity.API.Attributes
                     throw new ArgumentNullException(nameof(context));
                 }
 
-                await _authorizationService.Authorize(accessToken, innerToken);
+                AuthorizeV1Command command = new()
+                {
+                    AccessToken = accessToken,
+                    InnerToken = innerToken
+                };
+                await _mediator.Send(command);
             }
         }
     }

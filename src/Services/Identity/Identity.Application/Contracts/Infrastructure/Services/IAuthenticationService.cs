@@ -1,9 +1,7 @@
 ﻿using Identity.Application.Models.Authentication;
+using Identity.Application.Models.UserContext;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Identity.Application.Contracts.Infrastructure.Services
 {
@@ -15,5 +13,9 @@ namespace Identity.Application.Contracts.Infrastructure.Services
         string CreateRefreshToken(int customerId, DateTime expDate, string password, int version);
 
         RefreshToken GetRefreshTokenModel(string refreshToken);
+
+        UserContext GetContextFromExpiredToken(string accessToken);
+
+        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     }
 }

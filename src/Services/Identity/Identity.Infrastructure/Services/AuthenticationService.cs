@@ -1,7 +1,9 @@
 ﻿using Identity.Application.Contracts.Infrastructure.Services;
+using Identity.Application.Enums;
 using Identity.Application.Exceptions;
 using Identity.Application.Helpers;
 using Identity.Application.Models.Authentication;
+using Identity.Application.Models.UserContext;
 using Identity.Infrastructure.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -88,6 +90,78 @@ namespace Identity.Infrastructure.Services
             };
 
             return result;
+        }
+
+        public UserContext GetContextFromExpiredToken(string accessToken)
+        {
+            var claims = GetPrincipalFromExpiredToken(accessToken);
+            int.TryParse(claims.Claims?.First(p => p.Type == "WarehouseId").Value, out int warehouseId);
+
+            UserContext userContext = new()
+            {
+                DeviceId = int.Parse(claims.Claims?.First(p => p.Type == "DeviceId").Value),
+                CredentialId = int.Parse(claims.Claims?.First(p => p.Type == "CredentialId").Value),
+                CustomerId = int.Parse(claims.Claims?.First(p => p.Type == "CustomerId").Value),
+                ExpDate = long.Parse(claims.Claims?.Single(p => p.Type == JwtRegisteredClaimNames.Exp).Value),
+                RoleId = int.Parse(claims.Claims?.First(p => p.Type == "RoleId").Value),
+                RoleGroupId = int.Parse(claims.Claims?.First(p => p.Type == "RoleGroupId").Value),
+                Magic = claims.Claims?.First(p => p.Type == "Magic").Value,
+                CustomerState = claims.Claims?.First(p => p.Type == "State").Value.ToEnum<CustomerStateEnum>() ?? CustomerStateEnum.Activated,
+                WarehouseId = warehouseId
+            };
+
+            return userContext;
+        }
+
+        //TODO remove problem reporters
+        public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
+        {
+            token = token.Replace("Bearer ", string.Empty);
+            ClaimsPrincipal principal = null;
+
+            try
+            {
+                var tokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = _authenticationServiceSettings.Value.Issuer,
+                    ValidateAudience = true,
+                    ValidAudience = _authenticationServiceSettings.Value.Audience,
+                    ValidateLifetime = false,
+                    IssuerSigningKey = CryptHelper.GetSymmetricSecurityKey(_authenticationServiceSettings.Value.Key),
+                    ValidateIssuerSigningKey = true,
+                };
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+                SecurityToken securityToken;
+                principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out securityToken);
+                var jwtSecurityToken = securityToken as JwtSecurityToken;
+                if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return null;
+                    //ErrorModel errorModel = new()
+                    //{
+                    //    Key = "invalid_token",
+                    //};
+
+                    // change this exception handling
+                    //ProblemReporter.ReportUnauthorizedAccess(JsonConvert.SerializeObject(errorModel));// logout
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+                //ErrorModel errorModel = new()
+                //{
+                //    Key = "invalid_token",
+                //};
+
+                //// change this exception handling
+
+                //ProblemReporter.ReportUnauthorizedAccess(JsonConvert.SerializeObject(errorModel));
+            }
+            return principal;
         }
 
         private static ClaimsIdentity GetIdentity(TokenDetails details)

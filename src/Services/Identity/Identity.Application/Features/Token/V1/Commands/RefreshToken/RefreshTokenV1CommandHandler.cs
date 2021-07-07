@@ -22,22 +22,20 @@ namespace Identity.Application.Features.Token.V1.Commands.RefreshToken
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICustomerClientService _customerClientService;
         private readonly IAuthenticationService _authenticationService;
-        private readonly IAuthorizationService _authorizationService;
-        public RefreshTokenV1CommandHandler(IMapper mapper, ILogger<RefreshTokenV1CommandHandler> logger, IUnitOfWork unitOfWork, ICustomerClientService customerClientService, IAuthenticationService authenticationService, IAuthorizationService authorizationService)
+        public RefreshTokenV1CommandHandler(IMapper mapper, ILogger<RefreshTokenV1CommandHandler> logger, IUnitOfWork unitOfWork, ICustomerClientService customerClientService, IAuthenticationService authenticationService)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _customerClientService = customerClientService ?? throw new ArgumentNullException(nameof(customerClientService));
             _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
-            _authorizationService = authorizationService ?? throw new ArgumentNullException(nameof(authorizationService));
         }
 
 
         public async Task<TokenV1Response> Handle(RefreshTokenV1Command request, CancellationToken cancellationToken)
         {
             TokenV1Response response = default;
-            UserContext userContext = _authorizationService.GetContextFromExpiredToken(request.AccessToken);
+            UserContext userContext = _authenticationService.GetContextFromExpiredToken(request.AccessToken);
 
             authModels.RefreshToken refreshToken = _authenticationService.GetRefreshTokenModel(request.RefreshToken);
 
