@@ -13,6 +13,7 @@ namespace Identity.Application.Models.UserContext
         public string Magic { get; set; }
         public CustomerStateEnum CustomerState { get; set; }
         public long ExpDate { get; set; }
+        public int Version { get; set; }
 
 
         public override bool Equals(object obj)
@@ -25,7 +26,8 @@ namespace Identity.Application.Models.UserContext
             if (CredentialId != other.CredentialId || CustomerId != other.CustomerId ||
                 RoleId != other.RoleId || RoleGroupId != other.RoleGroupId || DeviceId != other.DeviceId ||
                 WarehouseId != other.WarehouseId || Magic != other.Magic ||
-                CustomerState != other.CustomerState || ExpDate != other.ExpDate
+                CustomerState != other.CustomerState || ExpDate != other.ExpDate ||
+                Version != other.Version
                 )
                 return false;
 

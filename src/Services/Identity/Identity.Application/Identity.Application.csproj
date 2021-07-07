@@ -9,13 +9,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Behaviours\" />
     <Folder Include="Features\Credential\V1\Commands\ConfirmPassword\" />
     <Folder Include="Features\Credential\V1\Commands\ChangePassword\" />
     <Folder Include="Features\Credential\V1\Commands\ResetPassword\" />
     <Folder Include="Features\Permission\V1\Commands\DeletePermission\" />
     <Folder Include="Features\Role\V1\Commands\AssignRolePermission\" />
-    <Folder Include="Mappings\" />
   </ItemGroup>
 
   <ItemGroup>

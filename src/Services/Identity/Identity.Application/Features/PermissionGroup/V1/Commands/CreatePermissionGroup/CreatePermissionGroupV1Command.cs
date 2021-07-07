@@ -10,9 +10,9 @@ namespace Identity.Application.Features.PermissionGroup.V1.Commands.CreatePermis
 {
     public class CreatePermissionGroupV1Command : IRequest<PermissionGroupV1Response>
     {
-        [System.Text.Json.Serialization.JsonIgnore]
-        [JsonIgnore]
-        public int Id { get; set; }
+        //[System.Text.Json.Serialization.JsonIgnore]
+        //[JsonIgnore]
+        //public int Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

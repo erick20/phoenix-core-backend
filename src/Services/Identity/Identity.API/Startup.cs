@@ -47,7 +47,7 @@ namespace Identity.API
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseErrorHandlingMiddleware();
+            app.UseErrorHandlingMiddleware();
 
             app.UseCors(builder =>
           builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());

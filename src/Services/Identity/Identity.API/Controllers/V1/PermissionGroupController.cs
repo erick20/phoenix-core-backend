@@ -1,4 +1,5 @@
-﻿using Identity.Application.Exceptions;
+﻿using Identity.API.Attributes;
+using Identity.Application.Exceptions;
 using Identity.Application.Features.PermissionGroup;
 using Identity.Application.Features.PermissionGroup.V1.Commands.CreatePermissionGroup;
 using Identity.Application.Features.PermissionGroup.V1.Commands.UpdatePermissionGroup;
@@ -57,7 +58,7 @@ namespace Identity.API.Controllers.V1
         /// Create Permission Group
         /// </summary>
         [HttpPost]
-        //[Authorization]
+        [Authorization]
         [ProducesResponseType(typeof(PermissionGroupV1Response), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(List<ErrorValidationModel>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreatePermissionGroup([FromBody] CreatePermissionGroupV1Command request)

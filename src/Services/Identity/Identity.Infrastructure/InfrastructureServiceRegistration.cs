@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 using Identity.Infrastructure.Models;
 using System;
 using Identity.Application.Helpers;
+using Identity.Application.Contracts.Infrastructure.ClientServices;
+using Identity.Infrastructure.ClientServices;
 
 namespace Identity.Infrastructure
 {
@@ -72,6 +74,8 @@ namespace Identity.Infrastructure
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();
             services.AddScoped<IUserContextService, UserContextService>();
+
+            services.AddHttpClient<ICustomerClientService, CustomerClientService>();
 
             return services;
         }

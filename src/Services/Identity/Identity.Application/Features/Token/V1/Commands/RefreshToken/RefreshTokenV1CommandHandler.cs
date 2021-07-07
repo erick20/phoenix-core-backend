@@ -57,7 +57,9 @@ namespace Identity.Application.Features.Token.V1.Commands.RefreshToken
                     ProblemReporter.ReportAuthenticationFail("blocked_user");
                 }
 
-                if (!refreshToken.Magic.Contains(userContext.Magic) || !credential.Password.Contains(refreshToken.Magic))
+                if (!refreshToken.Magic.Contains(userContext.Magic) ||
+                    !credential.Password.Contains(refreshToken.Magic) ||
+                    userContext.Version != refreshToken.Version)
                 {
                     ProblemReporter.ReportUnauthorizedAccess("tokens_doesn't_match");
                 }
