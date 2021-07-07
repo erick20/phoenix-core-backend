@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Identity.Application.Exceptions;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -24,10 +25,20 @@ namespace Identity.Application.Behaviours
             {
                 return await next();
             }
-            catch (Exception ex)
+            catch(HttpException ex)
             {
+                if (ex.StatusCode >= 500)
+                {
+                    var requestName = typeof(TRequest).Name;
+                    _logger.LogError(ex, "Application Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
+                }
+                throw;
+            }
+            catch (Exception ex)
+            {                
                 var requestName = typeof(TRequest).Name;
                 _logger.LogError(ex, "Application Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
+                ProblemReporter.ReportInternalServerError("internal_error");
                 throw;
             }
         }

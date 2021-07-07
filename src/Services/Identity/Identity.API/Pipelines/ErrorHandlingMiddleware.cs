@@ -51,31 +51,6 @@ namespace Identity.API.Pipelines
                         statusCode = 500;
                     }
                 }
-
-                bool needLogging = LoggingHelper.GetLoggingAccess(statusCode);
-
-                if (needLogging)
-                {
-                    string message = string.Empty;
-
-                    if (context != null)
-                    {
-                        using (var stream = new MemoryStream())
-                        using (var reader = new StreamReader(stream))
-                        {
-                            if (context.Request.Method.ToLower() == "post" && context.Request.Body != null)
-                            {
-                                context.Request.Body.Position = 0;
-                                context.Request.Body.CopyTo(stream);
-                                stream.Seek(0, SeekOrigin.Begin);
-                                string requestBody = reader.ReadToEnd();
-                                message += "\n\n RequestBody:" + requestBody;
-                            }
-                        }
-                    }
-                    _logger.LogError($"ex = {exception.Message}  requestBody = {message}");
-                }
-
             }
             catch (Exception ex)
             {
