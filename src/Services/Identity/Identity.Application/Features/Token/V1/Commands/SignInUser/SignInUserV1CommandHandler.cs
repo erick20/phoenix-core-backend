@@ -45,16 +45,43 @@ namespace Identity.Application.Features.Token.V1.Commands.SignInUser
                 ProblemReporter.ReportAuthenticationFail("blocked_or_not_activated");
             }
 
+            var credential = await _unitOfWork.CredentialRepositoryV1.GetCredetialByIdAndPasswordAsync(customer.Customer.CredentialId, request.Password);
+            if (credential is null)
+            {
+                ProblemReporter.ReportAuthenticationFail("incorrect_username_or_password");
+            }
+
+            var role = await _unitOfWork.RoleRepositoryV1.GetRoleLimitByIdAsync(customer.Customer.RoleId);
+            if (role == null)
+            {
+                ProblemReporter.ReportResourseNotfound("role_not_found");
+            }
+
             DeviceClientResponse deviceClient = customer.Devices?.Where(x => x.DeviceId == request.DeviceId && x.FsmToken == request.FcmToken)?.FirstOrDefault();
 
             if (deviceClient is null)
             {
-                // deviceClient = add or update device
+                DeviceClientRequest deviceClientRequest = new()
+                {
+                    CustomerId = customer.Customer.Id,
+                    DeviceId = request.DeviceId,
+                    FsmToken = request.FcmToken
+                };
+
+                deviceClient = await _customerClientService.AddOrUpdateDevice(deviceClientRequest);
             }
 
-            AccessToken accessToken = _authenticationService.CreateAccessToken();
+            TokenDetails tokenDetails = _authenticationService.GetTokenDetails(credential.Id, customer.Customer.Id, (short)customer.Customer.CustomerState,
+                                            deviceClient.Id, credential.Password, role.Id, role.RoleGroupId, customer.Customer.WarehouseId);
 
-            TokenV1Response response = default;
+            AccessToken accessToken = _authenticationService.CreateAccessToken(tokenDetails);
+
+            TokenV1Response response = new()
+            {
+                AccessToken = accessToken.Token,
+                ExpDate = accessToken.ExpDate,
+                RefreshToken = _authenticationService.CreateRefreshToken(customer.Customer.Id, DateTime.UtcNow, credential.Password, tokenDetails.Version)
+            };
 
             return response;
         }

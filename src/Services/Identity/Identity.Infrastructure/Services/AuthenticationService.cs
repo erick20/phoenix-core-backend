@@ -27,10 +27,47 @@ namespace Identity.Infrastructure.Services
             _authenticationServiceSettings = authenticationServiceSettings;
         }
 
+        public TokenDetails GetTokenDetails(int credetialId, int customerId, short customerStateId, int deviceId, string password, int roleId, int roleGroupId, int? warehouseId = null, int version = default)
+        {
+            return new TokenDetails
+            {
+                CredentialId = credetialId,
+                CustomerId = customerId,
+                CustomerStateId = customerStateId,
+                DeviceId = deviceId,
+                Magic = password.Substring(0, 5),
+                RoleId = roleId,
+                RoleGroupId = roleGroupId,
+                WarehouseId = warehouseId,
+                Version = version++
+            };
+        }
+
+        public string CreateRefreshToken(int customerId, DateTime expDate, string password, int version)
+        {
+            RefreshToken refreshTokenModel = new()
+            {
+                CustomerId = customerId,
+                ExpDate = expDate.AddMonths(5),
+                Magic = password.Substring(0, 5)
+            };
+
+            string refreshToken = CryptHelper.Encrypt(JsonConvert.SerializeObject(refreshTokenModel), _authenticationServiceSettings.Value.AesSecretKey);
+
+            return refreshToken;
+        }
+
+        public RefreshToken GetRefreshTokenModel(string refreshToken)
+        {
+            RefreshToken refreshTokenModel = JsonConvert.DeserializeObject<RefreshToken>(CryptHelper.Decrypt(refreshToken, _authenticationServiceSettings.Value.AesSecretKey));
+
+            return refreshTokenModel;
+        }
+
         public AccessToken CreateAccessToken(TokenDetails details)
         {
             ClaimsIdentity _identity = GetIdentity(details);
-            DateTime currentDate = DateTime.Now;
+            DateTime currentDate = DateTime.UtcNow;
             DateTime expDateTime = currentDate.Add(TimeSpan.FromHours(_authenticationServiceSettings.Value.TokenLifeTime));
             string _encodedJwt = string.Empty;
 
@@ -46,8 +83,8 @@ namespace Identity.Infrastructure.Services
 
             AccessToken result = new()
             {
-                Token = _encodedJwt,
-                ExpDate = expDateTime
+                Token = "Bearer " + _encodedJwt,
+                ExpDate = DatetimeHelper.DatetimeToUnixParser(expDateTime) 
             };
 
             return result;
@@ -60,12 +97,12 @@ namespace Identity.Infrastructure.Services
                 new Claim("CredentialId", details.CredentialId.ToString()),
                 new Claim("CustomerId", details.CustomerId.ToString()),
                 new Claim("DeviceId", details.DeviceId.ToString()),
-                new Claim("Email", details.Email),
                 new Claim("RoleId", details.RoleId.ToString()),
                 new Claim("RoleGroupId", details.RoleGroupId.ToString()),
-                new Claim("State", details.CustomerState.ToString()),
+                new Claim("StateId", details.CustomerStateId.ToString()),
                 new Claim("Magic", details.Magic),
-                new Claim("WarehouseId", details.WarehouseId.ToString())
+                new Claim("WarehouseId", details.WarehouseId.ToString()),
+                new Claim("version", details.Version.ToString())
             };
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token");

@@ -10,7 +10,6 @@ namespace Identity.Application.Models.UserContext
         public int RoleGroupId { get; set; }
         public int DeviceId { get; set; }
         public int? WarehouseId { get; set; }
-        public string Email { get; set; }
         public string Magic { get; set; }
         public CustomerStateEnum CustomerState { get; set; }
         public long ExpDate { get; set; }
@@ -25,10 +24,8 @@ namespace Identity.Application.Models.UserContext
 
             if (CredentialId != other.CredentialId || CustomerId != other.CustomerId ||
                 RoleId != other.RoleId || RoleGroupId != other.RoleGroupId || DeviceId != other.DeviceId ||
-                WarehouseId != other.WarehouseId || Email != other.Email ||
-                Magic != other.Magic || CustomerState != other.CustomerState ||
-                ExpDate != other.ExpDate
-
+                WarehouseId != other.WarehouseId || Magic != other.Magic ||
+                CustomerState != other.CustomerState || ExpDate != other.ExpDate
                 )
                 return false;
 

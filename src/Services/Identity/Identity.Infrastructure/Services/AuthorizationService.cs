@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -96,6 +97,28 @@ namespace Identity.Infrastructure.Services
                 }
             }
         }
+
+        public UserContext GetContextFromExpiredToken(string accessToken)
+        {
+            var claims = GetPrincipalFromExpiredToken(accessToken);
+            int.TryParse(claims.Claims?.First(p => p.Type == "WarehouseId").Value, out int warehouseId);
+
+            UserContext userContext = new()
+            {
+                DeviceId = int.Parse(claims.Claims?.First(p => p.Type == "DeviceId").Value),
+                CredentialId = int.Parse(claims.Claims?.First(p => p.Type == "CredentialId").Value),
+                CustomerId = int.Parse(claims.Claims?.First(p => p.Type == "CustomerId").Value),
+                ExpDate = long.Parse(claims.Claims?.Single(p => p.Type == JwtRegisteredClaimNames.Exp).Value),
+                RoleId = int.Parse(claims.Claims?.First(p => p.Type == "RoleId").Value),
+                RoleGroupId = int.Parse(claims.Claims?.First(p => p.Type == "RoleGroupId").Value),
+                Magic = claims.Claims?.First(p => p.Type == "Magic").Value,
+                CustomerState = claims.Claims?.First(p => p.Type == "State").Value.ToEnum<CustomerStateEnum>() ?? CustomerStateEnum.Activated,
+                WarehouseId = warehouseId
+            };
+
+            return userContext;
+        }
+
         private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
         {
             token = token.Replace("Bearer ", string.Empty);

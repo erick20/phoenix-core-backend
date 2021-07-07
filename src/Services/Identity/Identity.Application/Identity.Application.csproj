@@ -15,7 +15,6 @@
     <Folder Include="Features\Credential\V1\Commands\ResetPassword\" />
     <Folder Include="Features\Permission\V1\Commands\DeletePermission\" />
     <Folder Include="Features\Role\V1\Commands\AssignRolePermission\" />
-    <Folder Include="Features\Token\V1\Commands\RefreshAccessToken\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 

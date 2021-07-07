@@ -46,7 +46,6 @@ namespace Identity.Infrastructure.Services
             {
                 DeviceId = int.Parse(claims.First(p => p.Type == "DeviceId").Value),
                 CustomerId = int.Parse(claims.First(p => p.Type == "CustomerId").Value),
-                Email = claims.First(p => p.Type == "Email").Value,
                 RoleId = int.Parse(claims.First(p => p.Type == "RoleId").Value),
                 RoleGroupId = int.Parse(claims.First(p => p.Type == "RoleGroupId").Value),
                 Magic = claims.First(p => p.Type == "Magic").Value,

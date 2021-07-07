@@ -10,5 +10,6 @@ namespace Identity.Application.Contracts.Infrastructure.ClientServices
     public interface ICustomerClientService
     {
         Task<GetCustomerClientResponse> GetCustomerByContactAsync(string contact);
+        Task<DeviceClientResponse> AddOrUpdateDevice(DeviceClientRequest deviceClientRequest);
     }
 }

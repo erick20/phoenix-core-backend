@@ -9,6 +9,6 @@ namespace Identity.Application.Models.Authentication
     public class AccessToken
     {
         public string Token { get; set; }
-        public DateTime ExpDate { get; set; }
+        public long ExpDate { get; set; }
     }
 }

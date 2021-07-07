@@ -30,21 +30,21 @@ namespace Identity.Infrastructure.Repositories.Base
             return entityList;
         }
 
-        public async Task<Role> GetRoleLimitByIdAsync(int id, bool withActiveState)
+        public async Task<Role> GetRoleLimitByIdAsync(int id, bool withActiveState = false)
         {
             var entity = withActiveState ? await Get(x => x.Id == id, "Limits").FirstOrDefaultAsync()
                 : await GetNoTracking(x => x.Id == id, "Limits").FirstOrDefaultAsync();
             return entity;
         }
 
-        public IQueryable<Role> GetRoleLimitByWarehouseTypeIdAsync(int warehouseTypeId, bool withActiveState)
+        public IQueryable<Role> GetRoleLimitByWarehouseTypeIdAsync(int warehouseTypeId, bool withActiveState = false)
         {
             var entity = withActiveState ? Get(x => x.WarehouseTypeId == warehouseTypeId, "Limits")
                 : GetNoTracking(x => x.WarehouseTypeId == warehouseTypeId, "Limits");
             return entity;
         }
 
-        public async Task<Role> GetRoleLimitPermissionByIdAsync(int id, bool withActiveState)
+        public async Task<Role> GetRoleLimitPermissionByIdAsync(int id, bool withActiveState = false)
         {
             var entity = withActiveState ? await Get(x => x.Id == id, "Limits", "RolePermissions").FirstOrDefaultAsync()
                 : await GetNoTracking(x => x.Id == id, "Limits", "RolePermissions").FirstOrDefaultAsync();

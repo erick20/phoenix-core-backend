@@ -10,9 +10,9 @@ namespace Identity.Application.Contracts.Persistence.Base
 {
     public interface IRoleRepositoryBase : IBaseRepository<Role>
     {
-        Task<Role> GetRoleLimitByIdAsync(int id, bool v);
-        IQueryable<Role> GetRoleLimitByWarehouseTypeIdAsync(int warehouseTypeId, bool withActiveState);
-        Task<Role> GetRoleLimitPermissionByIdAsync(int id, bool v);
+        Task<Role> GetRoleLimitByIdAsync(int id, bool withActiveState = false);
+        IQueryable<Role> GetRoleLimitByWarehouseTypeIdAsync(int warehouseTypeId, bool withActiveState = false);
+        Task<Role> GetRoleLimitPermissionByIdAsync(int id, bool withActiveState = false);
         Task<PagedResponse<Role>> GetPagedRoleListAsync(int pn, int ps);
         IQueryable<Role> GetRoleListByIds(List<int> ids);
     }

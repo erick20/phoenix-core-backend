@@ -31,5 +31,12 @@ namespace Identity.Infrastructure.ClientServices
 
             return response;
         }
+
+        public async Task<DeviceClientResponse> AddOrUpdateDevice(DeviceClientRequest deviceClientRequest)
+        {
+            DeviceClientResponse deviceClientResponse = await PostAsJsonAsync<DeviceClientResponse>(_customerClientSettings.AddOrUpdateDevice, deviceClientRequest, _requestContext.GetAccessToken(), _requestContext.GetInnerToken());
+
+            return deviceClientResponse; 
+        }
     }
 }

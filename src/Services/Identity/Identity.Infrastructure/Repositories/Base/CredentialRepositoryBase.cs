@@ -21,11 +21,20 @@ namespace Identity.Infrastructure.Repositories.Base
             _transaction = transaction;
         }
 
+        public async Task<Credential> GetCredetialByIdAndPasswordAsync(int credentialId, string password, bool withActiveState)
+        {
+            var entity = withActiveState ? await Get(x => x.Id == credentialId && x.Password == password).FirstOrDefaultAsync()
+                : await GetNoTracking(x => x.Id == credentialId && x.Password == password).FirstOrDefaultAsync();
+            return entity;
+        }
+
         public async Task<Credential> GetCredetialByIdAsync(int credentialId, bool withActiveState)
         {
             var entity = withActiveState ? await Get(x => x.Id == credentialId).FirstOrDefaultAsync()
                 : await GetNoTracking(x => x.Id == credentialId).FirstOrDefaultAsync();
             return entity;
         }
+
+
     }
 }
