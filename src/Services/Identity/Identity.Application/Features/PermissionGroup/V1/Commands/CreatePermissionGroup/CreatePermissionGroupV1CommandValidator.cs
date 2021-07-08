@@ -11,7 +11,7 @@ namespace Identity.Application.Features.PermissionGroup.V1.Commands.CreatePermis
     {
         public CreatePermissionGroupV1CommandValidator()
         {
-            RuleFor(p => p.Name).NotEmpty().WithMessage("required_field");
+            RuleFor(p => p.Name).NotEmpty().WithMessage("required_field").WithName("name");
         }
     }
 }

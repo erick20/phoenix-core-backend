@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Identity.Application.Exceptions;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,20 @@ namespace Identity.Application.Behaviours
                 var failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList();
 
                 if (failures.Count != 0)
-                    throw new ValidationException(failures);
+                {
+                    List<ErrorValidationModel> errorValidations = new List<ErrorValidationModel>();
+                    foreach (var item in failures)
+                    {
+                        errorValidations.Add(new ErrorValidationModel
+                        {
+                            Key = item.ErrorMessage,
+                            Name = item.FormattedMessagePlaceholderValues["PropertyName"].ToString()
+                        });
+                    }
+
+                    
+                    throw ProblemReporter.ReturnBadRequest(errorValidations);//new ValidationException(failures);
+                }
             }
             return await next();
         }

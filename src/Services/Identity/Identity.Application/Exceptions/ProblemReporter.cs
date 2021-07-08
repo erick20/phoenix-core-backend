@@ -19,6 +19,12 @@ namespace Identity.Application.Exceptions
             throw new HttpException(400, message != null ? JsonObject(message, name) : "Invalid data");
         }
 
+        public static HttpException ReturnBadRequest(List<ErrorValidationModel> errorValidations)
+        {
+            string serializedException = JsonConvert.SerializeObject(errorValidations);
+            return new HttpException(400, serializedException);
+        }
+
         public static void ReportUnauthorizedAccess(string message = null)
         {
             throw new HttpException(401, message != null ? JsonObject(message) : "Unauthorized: Access is denied due to invalid credentials");
