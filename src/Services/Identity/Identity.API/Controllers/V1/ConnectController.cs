@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Identity.API.Controllers.V1
@@ -44,7 +43,7 @@ namespace Identity.API.Controllers.V1
         }
 
         /// <summary>
-        /// Refresh Access Token 
+        /// Refresh Token By Expired Access Token And Valid Refresh Token
         /// </summary>
         [HttpPut("Token")]
         [ProducesResponseType(typeof(TokenV1Response), StatusCodes.Status200OK)]
@@ -83,9 +82,7 @@ namespace Identity.API.Controllers.V1
         //    return Ok(result);
         //}
 
-        /// <summary>
-        /// Refresh Token By Expired Access Token And Valid Refresh Token
-        /// </summary>
+        
 
 
         [Authorization]

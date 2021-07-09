@@ -113,6 +113,21 @@ namespace Identity.Infrastructure.Services
             return userContext;
         }
 
+        public UserContext GetContextFromInnerToken(string innerToken)
+        {
+            try
+            {
+                UserContext innerTokenUserContextModel = JsonConvert.DeserializeObject<UserContext>(
+                                                    CryptHelper.Decrypt(innerToken, _authenticationServiceSettings.Value.AesSecretKey));
+                return innerTokenUserContextModel;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
         //TODO remove problem reporters
         public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
         {

@@ -16,6 +16,8 @@ namespace Identity.Application.Contracts.Infrastructure.Services
 
         UserContext GetContextFromExpiredToken(string accessToken);
 
+        UserContext GetContextFromInnerToken(string innerToken);
+
         ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     }
 }

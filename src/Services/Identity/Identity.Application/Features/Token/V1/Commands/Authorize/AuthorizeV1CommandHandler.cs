@@ -10,6 +10,7 @@ using Identity.Application.Models.UserContext;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,19 +22,16 @@ using System.Threading.Tasks;
 namespace Identity.Application.Features.Token.V1.Commands.Authorize
 {
     public class AuthorizeV1CommandHandler : IRequestHandler<AuthorizeV1Command, Unit>
-    {
-        private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IMapper _mapper;
+    {        
         private readonly ILogger<AuthorizeV1CommandHandler> _logger;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IHttpContextAccessor _contextAccessor;
         private readonly IUserContextService _userContextService;
         private readonly IMediator _mediator;
         private readonly IAuthenticationService _authenticationService;
-        public AuthorizeV1CommandHandler(IMapper mapper, ILogger<AuthorizeV1CommandHandler> logger, IUnitOfWork unitOfWork, IUserContextService userContextService, IMediator mediator, IAuthenticationService authenticationService)
+        public AuthorizeV1CommandHandler(ILogger<AuthorizeV1CommandHandler> logger, IHttpContextAccessor contextAccessor, IUserContextService userContextService, IMediator mediator, IAuthenticationService authenticationService)
         {
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _contextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(contextAccessor));
             _userContextService = userContextService ?? throw new ArgumentNullException(nameof(userContextService));
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
@@ -42,7 +40,7 @@ namespace Identity.Application.Features.Token.V1.Commands.Authorize
         public async Task<Unit> Handle(AuthorizeV1Command request, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(request.AccessToken))
-            {
+            {                
                 ProblemReporter.ReportUnauthorizedAccess("empty_access_token");
             }
             else if (!IsUserAuthenticated())
@@ -63,7 +61,7 @@ namespace Identity.Application.Features.Token.V1.Commands.Authorize
                 {
                     UserContext userContextModel = _userContextService.SetUserContext(Claims.Claims);
 
-                    UserContext innerTokenUserContextModel = JsonConvert.DeserializeObject<UserContext>(CryptHelper.Decrypt(request.InnerToken, "aziz")); // TODO secretK
+                    UserContext innerTokenUserContextModel = _authenticationService.GetContextFromInnerToken(request.InnerToken); 
 
                     if (!userContextModel.Equals(innerTokenUserContextModel))
                     {
