@@ -1,3 +1,3 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/hayplatform-283607/github.com/haypost-dev/phoenix-core-backend:$COMMIT_SHA', '.', '..', '-f', './src/Services/Identity/Identity.API/Dockerfile']
+  args: ['build', '-t', 'gcr.io/hayplatform-283607/github.com/haypost-dev/phoenix-core-backend:$COMMIT_SHA', '..', '-f', './src/Services/Identity/Identity.API/Dockerfile']
