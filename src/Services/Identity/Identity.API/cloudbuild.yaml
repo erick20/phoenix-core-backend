@@ -4,7 +4,7 @@ steps:
   args: 
     - 'build'
     - '-t'
-    - 'gcr.io/hayplatform-283607/github.com/haypost-dev/phoenix-core-backend:$COMMIT_SHA'
+    - 'gcr.io/hayplatform-283607/github.com/haypost-dev/micro-order:$COMMIT_SHA'
     - '..'
     - '-f'
     - './src/Services/Identity/Identity.API/Dockerfile'
