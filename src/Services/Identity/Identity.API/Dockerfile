@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR ../../
 
+COPY *.csproj ./
 COPY ./src/Services/Identity/Identity.API/Identity.API.csproj Services/Identity/Identity.API/
 COPY ./src/Services/Identity/Identity.Application/Identity.Application.csproj Services/Identity/Identity.Application/
 COPY ./src/Services/Identity/Identity.Domain/Identity.Domain.csproj Services/Identity/Identity.Domain/
