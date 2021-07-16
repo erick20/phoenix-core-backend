@@ -6,15 +6,15 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR ./
+WORKDIR /src
 
 #COPY *.csproj ./
 #COPY phoenix-core.sln ./
-COPY ./src/Services/Identity/Identity.API/Identity.API.csproj Services/Identity/Identity.API/
-COPY ./src/Services/Identity/Identity.Application/Identity.Application.csproj Services/Identity/Identity.Application/
-COPY ./src/Services/Identity/Identity.Domain/Identity.Domain.csproj Services/Identity/Identity.Domain/
-COPY ./src/Services/Identity/Identity.Infrastructure/Identity.Infrastructure.csproj Services/Identity/Identity.Infrastructure/
-COPY ./src/BuildingBlocks/Common.Logging/Common.Logging.csproj BuildingBlocks/Common.Logging/
+#COPY ./src/Services/Identity/Identity.API/Identity.API.csproj Services/Identity/Identity.API/
+#COPY ./src/Services/Identity/Identity.Application/Identity.Application.csproj Services/Identity/Identity.Application/
+#COPY ./src/Services/Identity/Identity.Domain/Identity.Domain.csproj Services/Identity/Identity.Domain/
+#COPY ./src/Services/Identity/Identity.Infrastructure/Identity.Infrastructure.csproj Services/Identity/Identity.Infrastructure/
+#COPY ./src/BuildingBlocks/Common.Logging/Common.Logging.csproj BuildingBlocks/Common.Logging/
 RUN dotnet restore "Services/Identity/Identity.API/Identity.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Identity/Identity.API"
