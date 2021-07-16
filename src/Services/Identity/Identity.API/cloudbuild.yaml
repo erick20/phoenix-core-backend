@@ -4,7 +4,7 @@ steps:
       - build
       - '-t'
       - 'gcr.io/hayplatform-283607/github.com/haypost-dev/phoenix-core-backend:$COMMIT_SHA'
-      - .
+      - ..
       - '-f'
       - Dockerfile
     dir: ./src/Services/Identity/Identity.API/
