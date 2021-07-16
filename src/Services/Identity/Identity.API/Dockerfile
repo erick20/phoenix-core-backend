@@ -6,11 +6,11 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /src
+WORKDIR /src/
 
 #COPY *.csproj ./
 #COPY phoenix-core.sln ./
-#COPY ./src/Services/Identity/Identity.API/Identity.API.csproj Services/Identity/Identity.API/
+COPY Services/Identity/Identity.API/Identity.API.csproj Services/Identity/Identity.API/
 #COPY ./src/Services/Identity/Identity.Application/Identity.Application.csproj Services/Identity/Identity.Application/
 #COPY ./src/Services/Identity/Identity.Domain/Identity.Domain.csproj Services/Identity/Identity.Domain/
 #COPY ./src/Services/Identity/Identity.Infrastructure/Identity.Infrastructure.csproj Services/Identity/Identity.Infrastructure/
