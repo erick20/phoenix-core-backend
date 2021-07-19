@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 #RUN cd ../../../
-RUN cd /src
+RUN cd /home
 RUN ls -l
 #WORKDIR /src
 
