@@ -11,8 +11,8 @@ WORKDIR /src
 #COPY *.csproj ./
 #COPY phoenix-core.sln ./
 
-COPY Services/Identity/Identity.API/Identity.API.csproj Services/Identity/Identity.API/
-COPY Services/Identity/Identity.Application/Identity.Application.csproj Services/Identity/Identity.Application/
+COPY ../../../Services/Identity/Identity.API/Identity.API.csproj Services/Identity/Identity.API/
+COPY ../../../Services/Identity/Identity.Application/Identity.Application.csproj Services/Identity/Identity.Application/
 COPY Services/Identity/Identity.Domain/Identity.Domain.csproj Services/Identity/Identity.Domain/
 COPY Services/Identity/Identity.Infrastructure/Identity.Infrastructure.csproj Services/Identity/Identity.Infrastructure/
 COPY BuildingBlocks/Common.Logging/Common.Logging.csproj BuildingBlocks/Common.Logging/
