@@ -6,8 +6,9 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-RUN cd ../../
-WORKDIR /src
+RUN cd ../../../
+RUN ls -l
+#WORKDIR /src
 
 #COPY *.csproj ./
 #COPY phoenix-core.sln ./
