@@ -15,7 +15,7 @@ COPY ./Identity.Infrastructure/Identity.Infrastructure.csproj Services/Identity/
 WORKDIR "/src/"
 
 #COPY ./BuildingBlocks/Common.Logging/Common.Logging.csproj BuildingBlocks/Common.Logging/
-RUN dotnet restore "Services/Identity/Identity.API/Identity.API.csproj"
+RUN dotnet restore "./Identity.API/Identity.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Identity/Identity.API"
 RUN dotnet build "Identity.API.csproj" -c Release -o /app/build
