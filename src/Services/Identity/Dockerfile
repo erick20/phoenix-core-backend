@@ -11,7 +11,10 @@ COPY ./Identity.API/Identity.API.csproj Services/Identity/Identity.API/
 COPY ./Identity.Application/Identity.Application.csproj Services/Identity/Identity.Application/
 COPY ./Identity.Domain/Identity.Domain.csproj Services/Identity/Identity.Domain/
 COPY ./Identity.Infrastructure/Identity.Infrastructure.csproj Services/Identity/Identity.Infrastructure/
-COPY ../BuildingBlocks/Common.Logging/Common.Logging.csproj BuildingBlocks/Common.Logging/
+
+WORKDIR "/src/"
+
+COPY ./BuildingBlocks/Common.Logging/Common.Logging.csproj BuildingBlocks/Common.Logging/
 RUN dotnet restore "Services/Identity/Identity.API/Identity.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Identity/Identity.API"
