@@ -29,7 +29,7 @@ namespace Identity.Application.Features.Role.V1.Queries.GetRoleListByIds
 
             List<RoleLimitPermissionV1Response> response = await _mapper.ProjectTo<RoleLimitPermissionV1Response>(roleList).ToListAsync();
 
-            return response;
+            return response; 
         }
     }
 }
